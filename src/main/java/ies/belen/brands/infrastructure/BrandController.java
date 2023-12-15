@@ -8,12 +8,7 @@ public class BrandController {
 
     @GET
     public String getBrands() {
-        return "Hello World! whthout build";
+        return "Hello World!";
     }
 
-    @GET
-    @Path("/compose")
-    public String getBrandById() {
-        return "Hello World! from docker-compose";
-    }
 }
