@@ -8,7 +8,7 @@ public class BrandController {
 
     @GET
     public String getBrands() {
-        return "Hello World!";
+        return "Hello World! whthout build";
     }
 
     @GET

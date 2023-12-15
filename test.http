@@ -1,5 +1,7 @@
 GET http://192.168.0.17:8080/rest/api/brands
 
+GET http://192.168.0.17:8080/rest/api/brands/compose
+
 
 
 

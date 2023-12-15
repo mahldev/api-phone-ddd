@@ -11,7 +11,7 @@ RUN mvn clean install
 
 FROM payara/micro:6.2023.11-jdk17
 
-COPY target/rest.war $DEPLOY_DIR
+COPY --from=build /app/target/rest.war $DEPLOY_DIR
 
 CMD ["--deploymentDir", "/opt/payara/deployments", "--contextroot", "rest"]
 
