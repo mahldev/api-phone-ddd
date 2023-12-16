@@ -1,20 +1,32 @@
 package ies.belen.brands.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "brands")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Brand {
 
-    private final BrandId id;
-    private final BrandName name;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Brand(String id, String name) {
-        this.id = new BrandId(id);
-        this.name = new BrandName(name);
+    @Column(name = "name")
+    private String name;
+
+    public Brand(String name) {
+        this.name = name;
     }
 
-    public String id() {
-        return id.value();
-    }
-
-    public String name() {
-        return name.value();
-    }
 }
