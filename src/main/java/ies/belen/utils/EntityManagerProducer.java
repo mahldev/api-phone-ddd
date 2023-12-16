@@ -1,4 +1,4 @@
-package org.iesbelen.util;
+package ies.belen.utils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -27,7 +27,7 @@ public class EntityManagerProducer {
     @Produces
     @Default
     @Dependent
-    public EntityManager creaEntityManager() {
+    public EntityManager createEntityManager() {
         return emf.createEntityManager();
     }
 
