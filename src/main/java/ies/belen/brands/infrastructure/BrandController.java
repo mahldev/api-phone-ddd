@@ -22,17 +22,22 @@ import jakarta.ws.rs.core.Response;
 @Path("/brands")
 public class BrandController {
 
-    @Inject
-    private CreateBrand createBrand;
+    private final CreateBrand createBrand;
+    private final GetAllBrands getAllBrands;
+    private final UpdateBrand updateBrand;
+    private final RemoveBrand removeBrand;
 
     @Inject
-    private GetAllBrands getAllBrands;
-
-    @Inject
-    private UpdateBrand updateBrand;
-
-    @Inject
-    private RemoveBrand removeBrand;
+    public BrandController(
+            CreateBrand createBrand,
+            GetAllBrands getAllBrands,
+            UpdateBrand updateBrand,
+            RemoveBrand removeBrand) {
+        this.createBrand = createBrand;
+        this.getAllBrands = getAllBrands;
+        this.updateBrand = updateBrand;
+        this.removeBrand = removeBrand;
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

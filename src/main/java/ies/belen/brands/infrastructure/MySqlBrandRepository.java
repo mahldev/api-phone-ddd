@@ -13,7 +13,7 @@ import java.util.Optional;
 import ies.belen.brands.domain.Brand;
 
 @RequestScoped
-@Transactional(Transactional.TxType.REQUIRED)
+@Transactional
 public class MySqlBrandRepository implements BrandRepository {
 
     @Inject
