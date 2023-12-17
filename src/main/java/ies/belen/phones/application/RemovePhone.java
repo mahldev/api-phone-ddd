@@ -16,7 +16,6 @@ public class RemovePhone {
     public void remove(Long id) {
         phoneRepository.findById(id).ifPresentOrElse(
                 (phone) -> {
-                    phoneRepository.delete(phone);
                     phone.getBrand().getPhones().remove(phone);
                 },
                 () -> {

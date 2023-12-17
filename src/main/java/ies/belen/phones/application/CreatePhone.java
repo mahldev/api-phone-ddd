@@ -19,18 +19,18 @@ public class CreatePhone {
     @Inject
     private BrandRepository brandRepository;
 
-    public PhoneDto create(String name, Long idBrand) {
-        phoneRepository.findByName(name).ifPresent((unused) -> {
+    public PhoneDto create(PhoneDto phoneDto) {
+        phoneRepository.findByName(phoneDto.name()).ifPresent((unused) -> {
             throw new ResourceConflictException("Phone already exists");
         });
 
-        return brandRepository.findById(idBrand)
+        return brandRepository.findById(phoneDto.brandId())
                 .map(brand -> {
-                    Phone savedPhone = phoneRepository.save(new Phone(name, brand));
+                    Phone savedPhone = phoneRepository.save(Phone.createPhoneFromPhoneDto(phoneDto, brand));
                     brand.getPhones().add(savedPhone);
                     return savedPhone;
                 })
-                .map(phone -> new PhoneDto(phone.getId(), phone.getName(), phone.getBrand().getId()))
+                .map(Phone::toPhoneDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Brand not found"));
     }
 

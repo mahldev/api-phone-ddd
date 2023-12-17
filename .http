@@ -1,10 +1,10 @@
 #---------------------------BRANDS---------------------------
 
-POST http://192.168.0.17:8080/rest/api/brands 
+POST http://192.168.0.17:8080/rest/api/brands
 Content-Type: Application/json
 
 {
-    "name": "Brand 1"
+    "name": "Brand 2"
 }
 
 ###
@@ -27,12 +27,17 @@ DELETE http://192.168.0.17:8080/rest/api/brands/1
 GET http://192.168.0.17:8080/rest/api/phones
 
 ###
+GET http://192.168.0.17:8080/rest/api/phones/1
+
+###
 POST http://192.168.0.17:8080/rest/api/phones
 Content-Type: application/json
 
 {
     "name": "myPhone",
-    "brandId": 1
+    "price": 1000,
+    "brandId": 1,
+    "storagesSizes": [1000, 128, 64]
 }
 
 ###
@@ -41,7 +46,10 @@ Content-Type: application/json
 
 {
     "name": "myPhone4",
-    "brandId": 2
+    "price": 90,
+    "brandId": 1,
+    "storagesSizes": []
+
 }
 
 ###

@@ -7,6 +7,7 @@ import ies.belen.phones.application.GetAllPhones;
 import ies.belen.phones.application.PhoneDto;
 import ies.belen.phones.application.RemovePhone;
 import ies.belen.phones.application.UpdatePhone;
+import ies.belen.phones.application.GetPhoneById;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -24,17 +25,20 @@ public class PhoneController {
     private final CreatePhone createPhone;
     private final RemovePhone removePhone;
     private final UpdatePhone updatePhone;
+    private final GetPhoneById getPhone;
 
     @Inject
     public PhoneController(
             GetAllPhones getAllPhones,
             CreatePhone createPhone,
             RemovePhone removePhone,
-            UpdatePhone updatePhone) {
+            UpdatePhone updatePhone,
+            GetPhoneById getPhone) {
         this.getAllPhones = getAllPhones;
         this.createPhone = createPhone;
         this.removePhone = removePhone;
         this.updatePhone = updatePhone;
+        this.getPhone = getPhone;
     }
 
     @GET
@@ -42,11 +46,18 @@ public class PhoneController {
         return Response.ok(getAllPhones.getAll()).build();
     }
 
+    @GET
+    @Path("{id}")
+    public Response get(@PathParam("id") Long id) {
+        return Response.ok(getPhone.get(id)).build();
+    }
+
     @POST
     public Response create(@Valid PhoneDto phoneDto) {
-        PhoneDto phone = createPhone.create(phoneDto.name(), phoneDto.brandId());
+        PhoneDto phone = createPhone.create(phoneDto);
         return Response
                 .created(URI.create("/phones/" + phone.id()))
+                .entity(phone)
                 .build();
     }
 

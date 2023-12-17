@@ -51,6 +51,7 @@ public class BrandController {
         var brand = createBrand.create(brandDto.name());
         return Response
                 .created(URI.create("/brands/" + brand.id()))
+                .entity(brand)
                 .build();
     }
 

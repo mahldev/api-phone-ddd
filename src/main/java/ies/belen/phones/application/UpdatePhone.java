@@ -3,12 +3,14 @@ package ies.belen.phones.application;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 import ies.belen.brands.domain.BrandRepository;
 import ies.belen.exceptions.ResourceNotFoundException;
 import ies.belen.phones.domain.Phone;
 import ies.belen.phones.domain.PhoneRepository;
+import ies.belen.phones.domain.StorageSize;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -40,6 +42,7 @@ public class UpdatePhone {
                 () -> {
                     throw new ResourceNotFoundException("Phone not found");
                 });
+
     }
 
     private void updateGivenInfo(Phone phone, PhoneDto phoneDto) {
@@ -59,12 +62,20 @@ public class UpdatePhone {
         if (nonNull(phoneDto.name()))
             phone.setName(phoneDto.name());
 
+        if (nonNull(phoneDto.price()))
+            phone.setPrice(phoneDto.price());
+
+
+        if (nonNull(phoneDto.storagesSizes()))
+            phone.setStoragesSizes(phoneDto.storagesSizes());
+
         phoneRepository.update(phone);
     }
 
     private void updateOldBrand(Phone phone) {
         brandRepository.findById(phone.getId()).ifPresent(
                 (brand) -> brand.getPhones().remove(phone));
+
     }
 
 }
