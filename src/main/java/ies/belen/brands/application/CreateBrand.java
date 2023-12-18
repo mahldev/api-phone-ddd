@@ -24,8 +24,7 @@ public class CreateBrand {
                 .map(brand -> new BrandDto(
                         brand.getId(),
                         brand.getName(),
-                        Phone.toListOfPhonesDtop(brand.getPhones())))
+                        Phone.formListOfPhoneToPhoneDto(brand.getPhones())))
                 .orElseThrow();
     }
-
 }

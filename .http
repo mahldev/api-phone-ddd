@@ -1,6 +1,7 @@
-#---------------------------BRANDS---------------------------
+#---------------------------BRANDS---------------------------#
 
-POST http://192.168.0.17:8080/rest/api/brands
+###
+POST http://localhost:8080/rest/api/brands
 Content-Type: Application/json
 
 {
@@ -8,10 +9,10 @@ Content-Type: Application/json
 }
 
 ###
-GET http://192.168.0.17:8080/rest/api/brands
+GET http://localhost:8080/rest/api/brands
 
 ###
-PUT http://192.168.0.17:8080/rest/api/brands/1
+PUT http://localhost:8080/rest/api/brands/1
 Content-Type: Application/json
 
 {
@@ -19,18 +20,18 @@ Content-Type: Application/json
 }
 
 ###
-DELETE http://192.168.0.17:8080/rest/api/brands/1
+DELETE http://localhost:8080/rest/api/brands/1
 
-#---------------------------PHONES---------------------------
-
-###
-GET http://192.168.0.17:8080/rest/api/phones
+#---------------------------PHONES---------------------------#
 
 ###
-GET http://192.168.0.17:8080/rest/api/phones/1
+GET http://localhost:8080/rest/api/phones
 
 ###
-POST http://192.168.0.17:8080/rest/api/phones
+GET http://localhost:8080/rest/api/phones/1
+
+###
+POST http://localhost:8080/rest/api/phones
 Content-Type: application/json
 
 {
@@ -41,7 +42,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://192.168.0.17:8080/rest/api/phones/1
+PUT http://localhost:8080/rest/api/phones/1
 Content-Type: application/json
 
 {
@@ -49,8 +50,7 @@ Content-Type: application/json
     "price": 90,
     "brandId": 1,
     "storagesSizes": []
-
 }
 
 ###
-DELETE http://192.168.0.17:8080/rest/api/phones/1
+DELETE http://localhost:8080/rest/api/phones/1

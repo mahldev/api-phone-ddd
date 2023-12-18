@@ -1,7 +1,6 @@
 package ies.belen.phones.domain;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 import java.io.Serializable;
 
@@ -48,10 +47,10 @@ public class Phone implements Serializable {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
-                name = "phones_storages",
-                joinColumns = @JoinColumn(name = "phone_id"),
-                inverseJoinColumns = @JoinColumn(name = "storage_size_id")
-                )
+            name = "phones_storages",
+            joinColumns = @JoinColumn(name = "phone_id"),
+            inverseJoinColumns = @JoinColumn(name = "storage_size_id")
+    )
     private List<StorageSize> storagesSizes;
 
     public Phone(String name, Double price, Brand brand, List<Integer> storages) {
@@ -60,7 +59,7 @@ public class Phone implements Serializable {
         this.name = name;
         this.price = price;
         this.brand = brand;
-        this.storagesSizes = toStorageSizes(storages);
+        this.storagesSizes = fromIntegerToStorageSizes(storages);
     }
 
     public void setPrice(Double price) {
@@ -70,7 +69,7 @@ public class Phone implements Serializable {
     }
 
     public void setStoragesSizes(List<Integer> storages) {
-        this.storagesSizes = toStorageSizes(storages);
+        this.storagesSizes = fromIntegerToStorageSizes(storages);
     }
 
     private void ensurePriceIsPositive(Double price) {
@@ -78,19 +77,19 @@ public class Phone implements Serializable {
             throw new IllegalArgumentException("Invalid price");
     }
 
-    private List<StorageSize> toStorageSizes(List<Integer> list) {
+    private List<StorageSize> fromIntegerToStorageSizes(List<Integer> list) {
         return list.stream()
                 .map(StorageSize::fromIntToStorageSize)
                 .toList();
     }
 
-    public static List<PhoneDto> toListOfPhonesDtop(Set<Phone> phones) {
+    public static List<PhoneDto> formListOfPhoneToPhoneDto(Set<Phone> phones) {
         return phones.stream()
                 .map(Phone::toPhoneDto)
                 .toList();
     }
 
-    public static List<Integer> toListOfIntegers(List<StorageSize> list) {
+    public static List<Integer> fromListOfStorageSizeToListOfInt(List<StorageSize> list) {
         return list.stream()
                 .mapToInt(StorageSize::getSizeInGB)
                 .boxed()
@@ -103,7 +102,7 @@ public class Phone implements Serializable {
                 phone.getName(),
                 phone.getPrice(),
                 phone.getBrand().getId(),
-                toListOfIntegers(phone.getStoragesSizes()));
+                fromListOfStorageSizeToListOfInt(phone.getStoragesSizes()));
     }
 
     public static Phone createPhoneFromPhoneDto(PhoneDto phoneDto, Brand brand) {

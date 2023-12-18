@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile-db
     ports:
-      - "3306:3306"
+      - "3307:3306"
     healthcheck:
       test: "mysql -uroot -p12345678 -e 'select 1;'"
       interval: 1s
