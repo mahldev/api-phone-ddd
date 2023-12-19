@@ -10,17 +10,8 @@ import ies.belen.phones.application.PhoneDto;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -45,21 +36,34 @@ public class Phone implements Serializable {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
-            name = "phones_storages",
+            name = "phone_storage_sizes",
             joinColumns = @JoinColumn(name = "phone_id"),
             inverseJoinColumns = @JoinColumn(name = "storage_size_id")
     )
-    private List<StorageSize> storagesSizes;
+    private List<StorageSize> storageSizes;
 
-    public Phone(String name, Double price, Brand brand, List<Integer> storages) {
+    @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL)
+    private List<PhoneImage> images;
+
+    @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL)
+    private List<PhoneColor> colors;
+
+    public Phone(
+            String name,
+            Double price,
+            Brand brand,
+            List<String> images,
+            List<String> colors
+    ) {
         ensurePriceIsPositive(price);
 
         this.name = name;
         this.price = price;
         this.brand = brand;
-        this.storagesSizes = fromIntegerToStorageSizes(storages);
+        this.images = fromStringToPhoneImages(images);
+        this.colors = fromListOfStringToListColor(colors);
     }
 
     public void setPrice(Double price) {
@@ -68,31 +72,52 @@ public class Phone implements Serializable {
         this.price = price;
     }
 
-    public void setStoragesSizes(List<Integer> storages) {
-        this.storagesSizes = fromIntegerToStorageSizes(storages);
-    }
-
     private void ensurePriceIsPositive(Double price) {
         if (isNull(price) || price < 0)
             throw new IllegalArgumentException("Invalid price");
     }
 
-    private List<StorageSize> fromIntegerToStorageSizes(List<Integer> list) {
-        return list.stream()
-                .map(StorageSize::fromIntToStorageSize)
-                .toList();
-    }
-
     public static List<PhoneDto> formListOfPhoneToPhoneDto(Set<Phone> phones) {
-        return phones.stream()
+        return phones
+                .stream()
                 .map(Phone::toPhoneDto)
                 .toList();
     }
 
     public static List<Integer> fromListOfStorageSizeToListOfInt(List<StorageSize> list) {
-        return list.stream()
-                .mapToInt(StorageSize::getSizeInGB)
+        return list
+                .stream()
+                .map(StorageSize::getSizeInGB)
+                .mapToInt(StorageSize::fromStorageSizeEnumToInt)
                 .boxed()
+                .toList();
+    }
+
+    public static List<String> fromListOfPhoneImageToListOfString(List<PhoneImage> list) {
+        return list
+                .stream()
+                .map(PhoneImage::getImageName)
+                .toList();
+    }
+
+    private static List<String> fromListOfColorsToListOfString(List<PhoneColor> colors) {
+       return colors
+               .stream()
+               .map(PhoneColor::getColorName)
+               .toList();
+    }
+
+    private List<PhoneImage> fromStringToPhoneImages(List<String> stringList) {
+        return stringList
+                .stream()
+                .map(imageString -> new PhoneImage(imageString, this))
+                .toList();
+    }
+
+    private List<PhoneColor> fromListOfStringToListColor(List<String> stringList) {
+        return stringList
+                .stream()
+                .map(color -> new PhoneColor(color, this))
                 .toList();
     }
 
@@ -102,14 +127,10 @@ public class Phone implements Serializable {
                 phone.getName(),
                 phone.getPrice(),
                 phone.getBrand().getId(),
-                fromListOfStorageSizeToListOfInt(phone.getStoragesSizes()));
+                fromListOfStorageSizeToListOfInt(phone.getStorageSizes()),
+                fromListOfPhoneImageToListOfString(phone.getImages()),
+                fromListOfColorsToListOfString(phone.getColors())
+        );
     }
 
-    public static Phone createPhoneFromPhoneDto(PhoneDto phoneDto, Brand brand) {
-        return new Phone(
-                phoneDto.name(),
-                phoneDto.price(),
-                brand,
-                phoneDto.storagesSizes());
-    }
 }
