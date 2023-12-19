@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ../
+      dockerfile: docker/db.Dockerfile
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: "mysql -uroot -p12345678 -e 'select 1;'"
+      interval: 1s
+      retries: 20
+    environment:
+      MYSQL_DATABASE: eshop
+      MYSQL_ROOT_PASSWORD: 12345678
+
+  api:
+    build:
+      context: ../
+      dockerfile: docker/api.Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://db:3306/eshop
+      DB_USER: root
+      DB_PASSWORD: 12345678

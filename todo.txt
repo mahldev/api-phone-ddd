@@ -1,5 +1,0 @@
-Hay que actualizar el borrar, no estas borrando correctamente la información.
-Refactorizar la logica de phone y el nombre de las funciones.
-Modulo usuarios.
-Modulo pedidos.
-Gestionar el carrito.

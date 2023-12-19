@@ -1,0 +1,17 @@
+#root {
+  font-family: Inter;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --primary-color: #2548fa;
+  --text-primary-color: #29374d;
+  --text-secondary-color: #9397a3;
+  --background-color: #f5f6f8
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
