@@ -10,7 +10,7 @@ import ies.belen.brands.infrastructure.BrandController;
 import ies.belen.phones.infrastructure.PhoneController;
 import ies.belen.exceptions.GlobalExceptionHandler;
 
-@ApplicationPath("/api")
+@ApplicationPath("api")
 public class JaxRsApplication extends Application {
 
     @Override

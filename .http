@@ -12,6 +12,9 @@ Content-Type: Application/json
 GET http://localhost:8080/rest/api/brands
 
 ###
+GET http://localhost:8080/rest/api/brands/1
+
+###
 PUT http://localhost:8080/rest/api/brands/1
 Content-Type: Application/json
 
@@ -35,10 +38,12 @@ POST http://localhost:8080/rest/api/phones
 Content-Type: application/json
 
 {
-    "name": "myPhone",
+    "name": "myPhoneX",
     "price": 1000,
-    "brandId": 1,
-    "storagesSizes": [1000, 128, 64]
+    "brandId": 2,
+    "storagesSizes": [128, 64, 1000, 256],
+    "colors": ["azul"],
+    "images": ["image1, image3, image3"]
 }
 
 ###
@@ -48,9 +53,11 @@ Content-Type: application/json
 {
     "name": "myPhone4",
     "price": 90,
-    "brandId": 1,
-    "storagesSizes": []
+    "brandId": 3,
+    "storagesSizes": [90, 200],
+    "colors": ["azul"],
+    "images": ["image1, image3, image3"]
 }
 
 ###
-DELETE http://localhost:8080/rest/api/phones/1
+DELETE http://localhost:8080/rest/api/phones/3

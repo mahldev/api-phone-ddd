@@ -12,5 +12,8 @@ public record PhoneDto(
                 @NotBlank String name,
                 @NotNull Double price,
                 @NotNull Long brandId,
-                @NotNull List<Integer> storagesSizes) {
+                @NotNull List<Integer> storagesSizes,
+                @NotNull List<String> images,
+                @NotNull List<String> colors
+    ) {
 }
