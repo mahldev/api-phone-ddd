@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import ies.belen.brands.application.BrandDto;
 import ies.belen.phones.domain.Phone;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,6 +43,10 @@ public class Brand implements Serializable {
     public Brand(String name) {
         this.name = name;
         this.phones = new HashSet<>();
+    }
+
+    public static BrandDto toBrandDto(Brand brand) {
+       return new BrandDto(brand.getId(), brand.getName(), Phone.formListOfPhoneToPhoneDto(brand.getPhones()));
     }
 
 }

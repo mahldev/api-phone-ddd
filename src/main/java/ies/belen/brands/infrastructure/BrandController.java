@@ -2,11 +2,7 @@ package ies.belen.brands.infrastructure;
 
 import java.net.URI;
 
-import ies.belen.brands.application.BrandDto;
-import ies.belen.brands.application.CreateBrand;
-import ies.belen.brands.application.GetAllBrands;
-import ies.belen.brands.application.RemoveBrand;
-import ies.belen.brands.application.UpdateBrand;
+import ies.belen.brands.application.*;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -19,24 +15,27 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/brands")
+@Path("brands")
 public class BrandController {
 
     private final CreateBrand createBrand;
     private final GetAllBrands getAllBrands;
     private final UpdateBrand updateBrand;
     private final RemoveBrand removeBrand;
-
+    private final GetBrandById getBrandById;
     @Inject
     public BrandController(
             CreateBrand createBrand,
             GetAllBrands getAllBrands,
             UpdateBrand updateBrand,
-            RemoveBrand removeBrand) {
+            RemoveBrand removeBrand,
+            GetBrandById getBrandById
+    ) {
         this.createBrand = createBrand;
         this.getAllBrands = getAllBrands;
         this.updateBrand = updateBrand;
         this.removeBrand = removeBrand;
+        this.getBrandById = getBrandById;
     }
 
     @GET
@@ -44,6 +43,13 @@ public class BrandController {
     public Response getAll() {
         var brands = getAllBrands.getAll();
         return Response.ok(brands).build();
+    }
+
+    @GET
+    @Path("{id}")
+    public Response getBrand(@PathParam("id") Long id) {
+        var brandDto = getBrandById.get(id);
+        return Response.ok(brandDto).build();
     }
 
     @POST
@@ -56,14 +62,14 @@ public class BrandController {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("{id}")
     public Response update(@PathParam("id") Long id, @Valid BrandDto brandDto) {
         updateBrand.update(id, brandDto);
         return Response.ok().build();
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
     public Response delete(@PathParam("id") Long id) {
         removeBrand.remove(id);
         return Response.noContent().build();
