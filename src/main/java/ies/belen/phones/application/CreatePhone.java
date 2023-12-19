@@ -23,7 +23,6 @@ public class CreatePhone {
     @Inject
     private StorageSizeRepository storageSizeRepository;
 
-
     public PhoneDto create(PhoneDto phoneDto) {
         phoneRepository.findByName(phoneDto.name()).ifPresent((phone) -> {
                 throw new ResourceConflictException("Phone already exists");

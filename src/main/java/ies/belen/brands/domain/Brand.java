@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,7 +45,7 @@ public class Brand implements Serializable {
     }
 
     public static BrandDto toBrandDto(Brand brand) {
-       return new BrandDto(brand.getId(), brand.getName(), Phone.formListOfPhoneToPhoneDto(brand.getPhones()));
+       return new BrandDto(brand.getId(), brand.getName(), Phone.phoneSetToPhoneDtoList(brand.getPhones()));
     }
 
 }

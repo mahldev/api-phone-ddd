@@ -2,6 +2,7 @@ package ies.belen.brands.infrastructure;
 
 import java.net.URI;
 
+import ies.belen.auth.ApiKeySecured;
 import ies.belen.brands.application.*;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("brands")
+@ApiKeySecured
 public class BrandController {
 
     private final CreateBrand createBrand;
@@ -39,7 +41,6 @@ public class BrandController {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         var brands = getAllBrands.getAll();
         return Response.ok(brands).build();

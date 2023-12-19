@@ -1,4 +1,4 @@
-package ies.belen.filter;
+package ies.belen.filters;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;

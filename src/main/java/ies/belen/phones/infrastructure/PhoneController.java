@@ -2,6 +2,7 @@ package ies.belen.phones.infrastructure;
 
 import java.net.URI;
 
+import ies.belen.auth.ApiKeySecured;
 import ies.belen.phones.application.CreatePhone;
 import ies.belen.phones.application.GetAllPhones;
 import ies.belen.phones.application.PhoneDto;
@@ -54,6 +55,7 @@ public class PhoneController {
     }
 
     @POST
+    @ApiKeySecured
     public Response create(@Valid PhoneDto phoneDto) {
         PhoneDto phone = createPhone.create(phoneDto);
         return Response
@@ -64,6 +66,7 @@ public class PhoneController {
 
     @PUT
     @Path("{id}")
+    @ApiKeySecured
     public Response update(@PathParam("id") Long id, PhoneDto phoneDto) {
         updatePhone.update(id, phoneDto);
         return Response.ok().build();
@@ -71,6 +74,7 @@ public class PhoneController {
 
     @DELETE
     @Path("{id}")
+    @ApiKeySecured
     public Response delete(@PathParam("id") Long id) {
         removePhone.remove(id);
         return Response.noContent().build();

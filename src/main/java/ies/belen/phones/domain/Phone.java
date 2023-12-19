@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,8 +28,8 @@ public class Phone implements Serializable {
     @Column(length = 50, name = "name")
     private String name;
 
-    @Column(name = "price")
-    private Double price;
+    @Embedded
+    private PhonePrice price;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
@@ -57,34 +56,25 @@ public class Phone implements Serializable {
             List<String> images,
             List<String> colors
     ) {
-        ensurePriceIsPositive(price);
-
         this.name = name;
-        this.price = price;
+        this.price = new PhonePrice(price);
         this.brand = brand;
-        this.images = fromStringToPhoneImages(images);
-        this.colors = fromListOfStringToListColor(colors);
+        this.images = stringListToPhoneImageList(images);
+        this.colors = stringListToPhoneColorList(colors);
     }
 
     public void setPrice(Double price) {
-        ensurePriceIsPositive(price);
-
-        this.price = price;
+        this.price = new PhonePrice(price);
     }
 
-    private void ensurePriceIsPositive(Double price) {
-        if (isNull(price) || price < 0)
-            throw new IllegalArgumentException("Invalid price");
-    }
-
-    public static List<PhoneDto> formListOfPhoneToPhoneDto(Set<Phone> phones) {
+    public static List<PhoneDto> phoneSetToPhoneDtoList(Set<Phone> phones) {
         return phones
                 .stream()
                 .map(Phone::toPhoneDto)
                 .toList();
     }
 
-    public static List<Integer> fromListOfStorageSizeToListOfInt(List<StorageSize> list) {
+    public static List<Integer> storageSizeToIntegerList(List<StorageSize> list) {
         return list
                 .stream()
                 .map(StorageSize::getSizeInGB)
@@ -93,28 +83,28 @@ public class Phone implements Serializable {
                 .toList();
     }
 
-    public static List<String> fromListOfPhoneImageToListOfString(List<PhoneImage> list) {
+    public static List<String> phoneImagesListToStringList(List<PhoneImage> list) {
         return list
                 .stream()
                 .map(PhoneImage::getImageName)
                 .toList();
     }
 
-    private static List<String> fromListOfColorsToListOfString(List<PhoneColor> colors) {
+    private static List<String> phoneColorListToStringList(List<PhoneColor> colors) {
        return colors
                .stream()
                .map(PhoneColor::getColorName)
                .toList();
     }
 
-    private List<PhoneImage> fromStringToPhoneImages(List<String> stringList) {
+    private List<PhoneImage> stringListToPhoneImageList(List<String> stringList) {
         return stringList
                 .stream()
                 .map(imageString -> new PhoneImage(imageString, this))
                 .toList();
     }
 
-    private List<PhoneColor> fromListOfStringToListColor(List<String> stringList) {
+    private List<PhoneColor> stringListToPhoneColorList(List<String> stringList) {
         return stringList
                 .stream()
                 .map(color -> new PhoneColor(color, this))
@@ -125,11 +115,11 @@ public class Phone implements Serializable {
         return new PhoneDto(
                 phone.getId(),
                 phone.getName(),
-                phone.getPrice(),
+                phone.getPrice().getPrice(),
                 phone.getBrand().getId(),
-                fromListOfStorageSizeToListOfInt(phone.getStorageSizes()),
-                fromListOfPhoneImageToListOfString(phone.getImages()),
-                fromListOfColorsToListOfString(phone.getColors())
+                storageSizeToIntegerList(phone.getStorageSizes()),
+                phoneImagesListToStringList(phone.getImages()),
+                phoneColorListToStringList(phone.getColors())
         );
     }
 

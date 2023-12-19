@@ -8,12 +8,20 @@ import jakarta.validation.constraints.NotNull;
 
 @Valid
 public record PhoneDto(
+
                 Long id,
+
                 @NotBlank String name,
+
                 @NotNull Double price,
+
                 @NotNull Long brandId,
+
                 @NotNull List<Integer> storagesSizes,
+
                 @NotNull List<String> images,
+
                 @NotNull List<String> colors
+
     ) {
 }

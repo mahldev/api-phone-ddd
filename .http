@@ -3,6 +3,7 @@
 ###
 POST http://localhost:8080/rest/api/brands
 Content-Type: Application/json
+Api-Key: apikey
 
 {
     "name": "Brand 2"
@@ -16,7 +17,7 @@ GET http://localhost:8080/rest/api/brands/1
 
 ###
 PUT http://localhost:8080/rest/api/brands/1
-Content-Type: Application/json
+content-type: Application/json
 
 {
     "name": "Changed Brand 1"
@@ -36,11 +37,12 @@ GET http://localhost:8080/rest/api/phones/1
 ###
 POST http://localhost:8080/rest/api/phones
 Content-Type: application/json
+Api-Key: apikey
 
 {
-    "name": "myPhoneX",
+    "name": "myPhone2",
     "price": 1000,
-    "brandId": 2,
+    "brandId": 1,
     "storagesSizes": [128, 64, 1000, 256],
     "colors": ["azul"],
     "images": ["image1, image3, image3"]
@@ -51,7 +53,7 @@ PUT http://localhost:8080/rest/api/phones/1
 Content-Type: application/json
 
 {
-    "name": "myPhone4",
+    "name": "myPhone2",
     "price": 90,
     "brandId": 3,
     "storagesSizes": [90, 200],
@@ -61,3 +63,49 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/rest/api/phones/3
+
+
+
+#---------------------------USERS---------------------------#
+
+###
+GET http://localhost:8080/rest/api/users
+Api-Key: apikey
+
+###
+POST http://localhost:8080/rest/api/users
+Content-Type: application/json
+Api-Key: apikey
+
+{
+  "userName": "paco",
+  "password": "123",
+  "rol": "ADMIN"
+}
+###
+
+
+#---------------------------USERS---------------------------#
+
+###
+GET http://localhost:8080/rest/api/orders
+
+
+###
+POST http://localhost:8080/rest/api/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "items": [
+               {
+                 "phoneId": 1,
+                 "quantity": 2
+               },
+               {
+                 "phoneId": 2,
+                 "quantity": 2
+               }
+           ]
+}
+

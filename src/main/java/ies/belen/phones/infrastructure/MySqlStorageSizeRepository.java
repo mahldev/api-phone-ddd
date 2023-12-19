@@ -5,6 +5,7 @@ import ies.belen.phones.domain.StorageSizeRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class MySqlStorageSizeRepository implements StorageSizeRepository {
 
     @Inject
+    @PersistenceContext
     private EntityManager em;
 
     @Override

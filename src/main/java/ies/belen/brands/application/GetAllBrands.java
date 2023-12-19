@@ -19,7 +19,7 @@ public class GetAllBrands {
                 .map(brand -> new BrandDto(
                         brand.getId(),
                         brand.getName(),
-                        Phone.formListOfPhoneToPhoneDto(brand.getPhones())))
+                        Phone.phoneSetToPhoneDtoList(brand.getPhones())))
                 .toList());
     }
 
