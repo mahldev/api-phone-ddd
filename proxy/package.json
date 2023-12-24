@@ -1,0 +1,24 @@
+{
+  "name": "proxy",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "vite": "^5.0.8"
+  },
+  "scripts": {
+    "up": "nodemon ./src/main.js",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}

@@ -30,9 +30,11 @@ DELETE http://localhost:8080/rest/api/brands/1
 
 ###
 GET http://localhost:8080/rest/api/phones
+Api-Key: apikey
 
 ###
 GET http://localhost:8080/rest/api/phones/1
+Api-Key: apikey
 
 ###
 POST http://localhost:8080/rest/api/phones

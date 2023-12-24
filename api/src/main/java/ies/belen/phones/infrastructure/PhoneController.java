@@ -20,6 +20,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
 @Path("phones")
+@ApiKeySecured
 public class PhoneController {
 
     private final GetAllPhones getAllPhones;
@@ -55,7 +56,6 @@ public class PhoneController {
     }
 
     @POST
-    @ApiKeySecured
     public Response create(@Valid PhoneDto phoneDto) {
         PhoneDto phone = createPhone.create(phoneDto);
         return Response
@@ -66,7 +66,6 @@ public class PhoneController {
 
     @PUT
     @Path("{id}")
-    @ApiKeySecured
     public Response update(@PathParam("id") Long id, PhoneDto phoneDto) {
         updatePhone.update(id, phoneDto);
         return Response.ok().build();
@@ -74,7 +73,6 @@ public class PhoneController {
 
     @DELETE
     @Path("{id}")
-    @ApiKeySecured
     public Response delete(@PathParam("id") Long id) {
         removePhone.remove(id);
         return Response.noContent().build();
