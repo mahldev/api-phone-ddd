@@ -22,7 +22,7 @@ export function AllPhonePage() {
   return (
     <>
       <Header />
-      <main className='flex justify-center mt-2'>
+      <main className='flex items-center justify-center mt-2'>
         {loading ? (
           <Spinner />
         ) : (

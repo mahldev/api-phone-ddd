@@ -1,30 +1,29 @@
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import { NextUIProvider } from '@nextui-org/react'
 import { IndexPage } from './pages/IndexPage'
 import { AllPhonePage } from './pages/AllPhonePage'
 import { PhoneDetailsView } from './pages/PhoneDatailsPage'
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path='/' element={<IndexPage />} />
-      <Route path='/phones' element={<AllPhonePage />} />
-      <Route path='/phones/:id' element={<PhoneDetailsView />} />
-    </>
+function App() {
+  const navigate = useNavigate()
+
+  return (
+    <NextUIProvider navigate={navigate}>
+      <Routes>
+        <Route path='/' element={<IndexPage />} />
+        <Route path='/phones' element={<AllPhonePage />} />
+        <Route path='/phones/:id' element={<PhoneDetailsView />} />
+      </Routes>
+    </NextUIProvider>
   )
-)
+}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <NextUIProvider>
-    <main className='font-montserrat'>
-      <RouterProvider router={router} />
-    </main>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </NextUIProvider>
 )
