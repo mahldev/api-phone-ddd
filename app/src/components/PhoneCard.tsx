@@ -6,7 +6,7 @@ import {
   CardHeader,
   Image,
 } from '@nextui-org/react'
-import { HeartIconPhoneCard } from '../../public/icons'
+import { HeartIconPhoneCard } from '@/assets/icons'
 
 type PhoneCardProps = {
   image: string
@@ -24,7 +24,7 @@ const PhoneCard: React.FC<PhoneCardProps> = ({ image, name, price }) => {
         <Image
           radius='lg'
           width='100%'
-          src={`../../public/images/${image}`}
+          src={`src/assets/images/${image}`}
           className='w-full object-cover h-[170px]'
         />
       </CardBody>

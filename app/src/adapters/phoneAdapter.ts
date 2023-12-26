@@ -1,5 +1,5 @@
-import { EndpointPhone } from "@/models/endpointPhone.ts"
-import { Phone } from "@/models/phone.ts"
+import { EndpointPhone } from '@/models/endpointPhone.ts'
+import { Phone } from '@/models/phone.ts'
 
 export function createAddaptedPhone(phone: EndpointPhone): Phone {
   const formattedPhone: Phone = {
@@ -9,7 +9,7 @@ export function createAddaptedPhone(phone: EndpointPhone): Phone {
     images: phone.images,
     name: phone.name,
     price: phone.price,
-    storagesSizes: phone.storagesSizes
+    storagesSizes: phone.storagesSizes,
   }
 
   return formattedPhone

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import Header from '../components/Header'
-import { getAllPhones } from '@/services/phoneService'
-import { Phone } from '@/models/phone'
+import { getAllPhones } from '@/services'
+import { Phone } from '@/models'
 import { Spinner } from '@nextui-org/react'
-import PhoneCard from '@/components/PhoneCard'
+import { PhoneCard, Header } from '@/components'
 
 export function AllPhonePage() {
   const [loading, setLoading] = useState(true)

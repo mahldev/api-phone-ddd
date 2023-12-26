@@ -2,10 +2,10 @@ import { Phone } from '@/models/phone'
 import { PhoneResponse } from '@/models/endpointPhone'
 import { createAddaptedPhone } from '@/adapters/phoneAdapter'
 
-const apiUrl = 'http://localhost:3000'
+const API_URL = 'http://localhost:3000'
 
 export async function getAllPhones(): Promise<Phone[]> {
-  const getAllPhonesUrl = `${apiUrl}/rest/api/phones`
+  const getAllPhonesUrl = `${API_URL}/rest/api/phones`
 
   try {
     const response = await fetch(getAllPhonesUrl)
