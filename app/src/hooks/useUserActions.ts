@@ -23,9 +23,8 @@ const useUserActions = () => {
 
   const isWishlistItem = (id: PhoneId) => user.wishlist.some(item => item.id === id)
 
-  const login = (user: User) => {
-
-  }
+  // TODO
+  //const login = (user: User) => { }
 
   return { isLoggedIn, create, reset, addToWishlist, removeFromWishlist, isWishlistItem }
 }

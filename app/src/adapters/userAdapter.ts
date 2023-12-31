@@ -5,7 +5,7 @@ type UserEndpoint = {
   passoword: string
 }
 
-const createAddaptedUser = (userEndpoint: UserEndpoint): User => {
+export const fromUserEnpointToUser = (userEndpoint: UserEndpoint): User => {
   const emptyArray: Phone[] = []
 
   const formattedUser: User = {
@@ -17,4 +17,13 @@ const createAddaptedUser = (userEndpoint: UserEndpoint): User => {
   return formattedUser
 }
 
-export default createAddaptedUser
+export const fromUserToEndpointUser = (user: User): UserEndpoint => {
+
+  const formattedUser: UserEndpoint = {
+    userName: user.name,
+    passoword: user.password
+  }
+
+  return formattedUser
+}
+

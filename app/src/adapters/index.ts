@@ -1,2 +1,2 @@
-export * from './phoneAdapter';
-export { default as userAdapter } from './userAdapter'
+export * from './phoneAdapter'
+export * from './userAdapter'
