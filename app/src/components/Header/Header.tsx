@@ -3,10 +3,10 @@ import Subnav from './Subnav.tsx'
 
 const Header = () => {
   return (
-    <header>
+    <>
       <HeaderTop />
       <Subnav />
-    </header>
+    </>
   )
 }
 

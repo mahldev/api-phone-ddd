@@ -7,17 +7,19 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "phone_colors")
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class PhoneColor implements Serializable {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(length = 30 ,name = "color_name")
+    @Column(name = "color_commercial_name")
+    private String commercialName;
+
+    @Column(length = 30, name = "color_name")
     private String colorName;
 
     @ManyToOne
@@ -26,7 +28,8 @@ public class PhoneColor implements Serializable {
     @EqualsAndHashCode.Exclude
     private Phone phone;
 
-    public PhoneColor(String colorName, Phone phone) {
+    public PhoneColor(String commercialName, String colorName, Phone phone) {
+        this.commercialName = commercialName;
         this.colorName = colorName;
         this.phone = phone;
     }

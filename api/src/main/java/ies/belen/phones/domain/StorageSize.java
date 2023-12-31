@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import lombok.ToString;
-
-import java.util.List;
 
 @Entity
 @Table(name = "storages_sizes")
@@ -20,7 +17,7 @@ public class StorageSize {
     @Column(name = "id")
     private Long id;
 
-    @Column(name="size_in_gb")
+    @Column(name = "size_in_gb")
     private StorageSizeEnum sizeInGB;
 
     public StorageSize(int sizeInGB) {
@@ -32,7 +29,7 @@ public class StorageSize {
     }
 
     public static StorageSizeEnum fromIntToStorageSizeEnum(int sizeInGB) {
-         switch (sizeInGB) {
+        switch (sizeInGB) {
             case 64:
                 return StorageSizeEnum.SIZE_64GB;
             case 128:
@@ -41,8 +38,8 @@ public class StorageSize {
                 return StorageSizeEnum.SIZE_256GB;
             case 512:
                 return StorageSizeEnum.SIZE_512GB;
-             case 1000:
-                 return StorageSizeEnum.SIZE_1000GB;
+            case 1000:
+                return StorageSizeEnum.SIZE_1000GB;
             default:
                 throw new IllegalArgumentException("Invalid sizeInGB value");
         }

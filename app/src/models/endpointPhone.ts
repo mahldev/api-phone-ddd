@@ -1,10 +1,12 @@
+import { PhoneColor } from "."
+
 export interface PhoneResponse {
   phones: EndpointPhone[]
 }
 
 export interface EndpointPhone {
   brandId: string
-  colors: string[]
+  colors: PhoneColor[]
   id: number
   images: string[]
   name: string

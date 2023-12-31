@@ -1,10 +1,9 @@
 package ies.belen.phones.domain;
 
-import static java.util.Objects.isNull;
-
 import java.io.Serializable;
 
 import ies.belen.brands.domain.Brand;
+import ies.belen.phones.application.PhoneColorDto;
 import ies.belen.phones.application.PhoneDto;
 
 import java.util.List;
@@ -36,17 +35,13 @@ public class Phone implements Serializable {
     private Brand brand;
 
     @ManyToMany
-    @JoinTable(
-            name = "phone_storage_sizes",
-            joinColumns = @JoinColumn(name = "phone_id"),
-            inverseJoinColumns = @JoinColumn(name = "storage_size_id")
-    )
+    @JoinTable(name = "phone_storage_sizes", joinColumns = @JoinColumn(name = "phone_id"), inverseJoinColumns = @JoinColumn(name = "storage_size_id"))
     private List<StorageSize> storageSizes;
 
     @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL)
     private List<PhoneImage> images;
 
-    @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "phone")
     private List<PhoneColor> colors;
 
     public Phone(
@@ -54,13 +49,12 @@ public class Phone implements Serializable {
             Double price,
             Brand brand,
             List<String> images,
-            List<String> colors
-    ) {
+            List<PhoneColorDto> colors) {
         this.name = name;
         this.price = new PhonePrice(price);
         this.brand = brand;
         this.images = stringListToPhoneImageList(images);
-        this.colors = stringListToPhoneColorList(colors);
+        this.colors = phoneColorListToPhoneColorList(colors);
     }
 
     public void setPrice(Double price) {
@@ -90,11 +84,11 @@ public class Phone implements Serializable {
                 .toList();
     }
 
-    private static List<String> phoneColorListToStringList(List<PhoneColor> colors) {
-       return colors
-               .stream()
-               .map(PhoneColor::getColorName)
-               .toList();
+    private static List<PhoneColorDto> phoneColorListToStringList(List<PhoneColor> colors) {
+        return colors
+                .stream()
+                .map(phoneColor -> new PhoneColorDto(phoneColor.getCommercialName(), phoneColor.getColorName()))
+                .toList();
     }
 
     private List<PhoneImage> stringListToPhoneImageList(List<String> stringList) {
@@ -104,10 +98,10 @@ public class Phone implements Serializable {
                 .toList();
     }
 
-    private List<PhoneColor> stringListToPhoneColorList(List<String> stringList) {
-        return stringList
+    private List<PhoneColor> phoneColorListToPhoneColorList(List<PhoneColorDto> phoneColorDtos) {
+        return phoneColorDtos
                 .stream()
-                .map(color -> new PhoneColor(color, this))
+                .map(color -> new PhoneColor(color.commercialName(), color.color(), this))
                 .toList();
     }
 
@@ -119,8 +113,7 @@ public class Phone implements Serializable {
                 phone.getBrand().getId(),
                 storageSizeToIntegerList(phone.getStorageSizes()),
                 phoneImagesListToStringList(phone.getImages()),
-                phoneColorListToStringList(phone.getColors())
-        );
+                phoneColorListToStringList(phone.getColors()));
     }
 
 }

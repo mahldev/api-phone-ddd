@@ -13,6 +13,9 @@ export default {
         'main-gray': '#f6f6f6',
       },
     },
+    fontFamily: {
+      'roboto': ['Roboto', 'sans-serif']
+    }
   },
   darkMode: 'class',
   plugins: [nextui()],

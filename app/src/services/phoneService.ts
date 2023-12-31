@@ -21,3 +21,21 @@ export async function getAllPhones(): Promise<Phone[]> {
     throw error
   }
 }
+
+export async function getPhone({ phoneId }: { phoneId: string }): Promise<Phone> {
+  const getPhoneUrl = `${API_URL}/rest/api/phones/${phoneId}`
+
+  try {
+    const response = await fetch(getPhoneUrl)
+
+    if (!response.ok) {
+      throw new Error(`Error fetching phone. Status: ${response.status}`)
+    }
+
+    const phone: Phone = await response.json()
+    return createAddaptedPhone(phone)
+  } catch (error) {
+    console.error('Error fetching phone:', error)
+    throw error
+  }
+}

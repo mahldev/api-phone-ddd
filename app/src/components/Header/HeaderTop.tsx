@@ -36,8 +36,9 @@ const links = [
 const HeaderTop = () => {
   return (
     <Navbar
-      as='section'
-      position='static'
+      as='header'
+      isBlurred={false}
+      position='sticky'
       className='py-1'
       maxWidth='xl'
       height='70px'
@@ -78,7 +79,7 @@ const HeaderTop = () => {
           )
         })}
       </NavbarContent>
-      <NavbarContent className='flex gap-5 ml-3'  justify='center'>
+      <NavbarContent className='flex gap-5 ml-3' justify='center'>
         <HeartIcon />
         <ShoppingCartIcon />
         <UserIcon />

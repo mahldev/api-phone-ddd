@@ -35,8 +35,7 @@ public class PhoneController {
             CreatePhone createPhone,
             RemovePhone removePhone,
             UpdatePhone updatePhone,
-            GetPhoneById getPhone
-    ) {
+            GetPhoneById getPhone) {
         this.getAllPhones = getAllPhones;
         this.createPhone = createPhone;
         this.removePhone = removePhone;

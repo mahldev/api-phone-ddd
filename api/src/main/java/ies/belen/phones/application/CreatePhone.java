@@ -25,7 +25,7 @@ public class CreatePhone {
 
     public PhoneDto create(PhoneDto phoneDto) {
         phoneRepository.findByName(phoneDto.name()).ifPresent((phone) -> {
-                throw new ResourceConflictException("Phone already exists");
+            throw new ResourceConflictException("Phone already exists");
         });
 
         return brandRepository.findById(phoneDto.brandId())
@@ -35,8 +35,7 @@ public class CreatePhone {
                             phoneDto.price(),
                             brand,
                             phoneDto.images(),
-                            phoneDto.colors()
-                    ));
+                            phoneDto.colors()));
                     savedPhone.setStorageSizes(fromIntegerListToSizeEnumList(phoneDto.storagesSizes()));
                     brand.getPhones().add(savedPhone);
                     return savedPhone;
@@ -44,7 +43,6 @@ public class CreatePhone {
                 .map(Phone::toPhoneDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Brand not found"));
     }
-
 
     public List<StorageSize> fromIntegerListToSizeEnumList(List<Integer> integerList) {
         return integerList

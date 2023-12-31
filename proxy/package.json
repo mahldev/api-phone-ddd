@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "devDependencies": {
     "nodemon": "^3.0.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.10"
   },
   "scripts": {
     "up": "nodemon ./src/main.js",

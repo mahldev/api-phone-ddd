@@ -43,18 +43,24 @@ const icons = [
 
 const Subnav = () => {
   return (
-    <Navbar as='section' className='flex bg-[#2E2E2E] w-full' maxWidth='xl'>
-      <NavbarContent>
+    <Navbar
+      as='section'
+      position='static'
+      className='flex justify-center bg-[#2E2E2E] w-full h-10'
+      maxWidth='xl'
+    >
+      <NavbarContent className='felx items-center w-full h-10 gap-0' justify='center'>
         {icons.map((icon, index) => {
           const isLast = index === icons.length - 1
 
           return (
-            <NavbarItem key={icon.displayName}>
+            <NavbarItem
+              className={`flex items-center flex-1 justify-center ${isLast ? '' : 'border-r-2 border-solid border-[#585858] '}`}
+              key={icon.displayName} >
               <Link
                 href={icon.route}
                 color='foreground'
-                className={`flex items-center gap-3 text-[#969696] text-center px-8 
-              ${isLast ? '' : 'border-r-2 border-solid border-[#585858]'} `}
+                className='flex items-center gap-3 text-[#969696] text-center'
               >
                 {icon.icon}
                 {icon.displayName}
@@ -62,8 +68,8 @@ const Subnav = () => {
             </NavbarItem>
           )
         })}
-      </NavbarContent>
-    </Navbar>
+      </NavbarContent >
+    </Navbar >
   )
 }
 
