@@ -26,16 +26,22 @@ public class User implements Serializable {
     @Embedded
     private UserPassword password;
 
-    public User(String userName, String password) {
+    public User(final String userName, final String password) {
         this.username = new UserName(userName);
         this.password = new UserPassword(password);
     }
 
-    public static UserDto toUserDto(User user) {
+    public static UserDto toUserDto(final User user) {
         return new UserDto(
                 user.getId(),
                 user.getUsername().getUsername(),
                 user.getPassword().getPassword());
+    }
+
+    public static User toUser(final UserDto userDto) {
+        return new User(
+                userDto.userName(),
+                userDto.password());
     }
 
 }

@@ -1,0 +1,18 @@
+package ies.belen.users.application;
+
+public record UserDto(
+
+    Long id,
+
+    String userName,
+
+    String password
+
+) {
+
+  public static User toUser(final UserDto userDto) {
+    return new User(
+        userDto.userName(),
+        userDto.password());
+  }
+}

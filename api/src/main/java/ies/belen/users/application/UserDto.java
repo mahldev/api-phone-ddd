@@ -1,12 +1,20 @@
 package ies.belen.users.application;
 
+import ies.belen.users.domain.User;
+
 public record UserDto(
 
-    Long id,
+        Long id,
 
-    String userName,
+        String userName,
 
-    String password
+        String password
 
 ) {
+
+    public static User toUser(final UserDto userDto) {
+        return new User(
+                userDto.userName(),
+                userDto.password());
+    }
 }

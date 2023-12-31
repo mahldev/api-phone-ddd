@@ -9,6 +9,7 @@ import ies.belen.users.infrastructure.UserController;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import ies.belen.filters.CorsFilter;
+import ies.belen.login.infrastructure.LoginController;
 import ies.belen.brands.infrastructure.BrandController;
 import ies.belen.phones.infrastructure.PhoneController;
 import ies.belen.exceptions.GlobalExceptionHandler;
@@ -22,6 +23,7 @@ public class JaxRsApplication extends Application {
         classes.add(CorsFilter.class);
         classes.add(PhoneController.class);
         classes.add(BrandController.class);
+        classes.add(LoginController.class);
         classes.add(UserController.class);
         classes.add(OrderController.class);
         classes.add(GlobalExceptionHandler.class);
