@@ -93,9 +93,8 @@ Api-Key: apikey
 {
   "userName": "paco",
   "password": "123",
-  "rol": "ADMIN"
+  "rol": "USER"
 }
-###
 
 
 #---------------------------USERS---------------------------#

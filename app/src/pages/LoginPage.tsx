@@ -1,35 +1,16 @@
-import { useAppSelector } from '@/hooks/store'
+import { Input, Button } from '@nextui-org/react'
 import useUserActions from '@/hooks/useUserActions'
 
 function LoginPage() {
   const { create } = useUserActions()
-  const user = useAppSelector(state => state.user)
 
   return (
-    <main>
-      <label>
-        name
-        <input type="text" placeholder={user.name} />
-      </label>
-
-      <label>
-        passwd
-        <input type="text" placeholder={user.password} />
-      </label>
-
-      <label>
-        Wishlist
-        <input type="text" placeholder={JSON.stringify(user.wishlist)} />
-      </label>
-
-      <label>
-        is logged
-        <input type="text" placeholder={JSON.stringify(user.isLoggedIn)} />
-      </label>
-
-      <button onClick={() => create({ name: 'text', password: '123', wishlist: [], isLoggedIn: false })}>
-        Login
-      </button>
+    <main className='flex flex-col items-center justify-center h-screen'>
+      <form className='flex flex-col flex-wrap md:flex-nowrap gap-4 w-[500px]' >
+        <Input type='text' label='User' />
+        <Input type='password' label='Password' />
+        <Button className='self-start'>Login</Button>
+      </form>
     </main>
   )
 }
