@@ -2,13 +2,11 @@ package ies.belen.users.application;
 
 public record UserDto(
 
-        Long id,
+    Long id,
 
-        String userName,
+    String userName,
 
-        String password,
+    String password
 
-        String rol
-
-        ) {
+) {
 }

@@ -82,7 +82,9 @@ const HeaderTop = () => {
       <NavbarContent className='flex gap-5 ml-3' justify='center'>
         <HeartIcon />
         <ShoppingCartIcon />
-        <UserIcon />
+        <Link href='/login'>
+          <UserIcon />
+        </Link>
       </NavbarContent>
     </Navbar>
   )

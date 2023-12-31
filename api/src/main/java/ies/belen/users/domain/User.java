@@ -26,11 +26,7 @@ public class User implements Serializable {
     @Embedded
     private UserPassword password;
 
-    @ManyToOne
-    @JoinColumn(name = "rol")
-    private UserRol rol;
-
-    public User (String userName, String password) {
+    public User(String userName, String password) {
         this.username = new UserName(userName);
         this.password = new UserPassword(password);
     }
@@ -39,9 +35,7 @@ public class User implements Serializable {
         return new UserDto(
                 user.getId(),
                 user.getUsername().getUsername(),
-                user.getPassword().getPassword(),
-                user.getRol().getRolEnum().toString().toLowerCase()
-        );
+                user.getPassword().getPassword());
     }
 
 }

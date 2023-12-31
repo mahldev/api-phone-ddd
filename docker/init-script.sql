@@ -273,29 +273,6 @@ INSERT INTO `storages_sizes` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_rols`
---
-
-DROP TABLE IF EXISTS `user_rols`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_rols` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `rol` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_rols`
---
-
-LOCK TABLES `user_rols` WRITE;
-/*!40000 ALTER TABLE `user_rols` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_rols` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -306,10 +283,7 @@ CREATE TABLE `users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `rol` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_users_rol` (`rol`),
-  CONSTRAINT `FK_users_rol` FOREIGN KEY (`rol`) REFERENCES `user_rols` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

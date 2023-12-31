@@ -12,8 +12,6 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("brands")
@@ -25,14 +23,14 @@ public class BrandController {
     private final UpdateBrand updateBrand;
     private final RemoveBrand removeBrand;
     private final GetBrandById getBrandById;
+
     @Inject
     public BrandController(
             CreateBrand createBrand,
             GetAllBrands getAllBrands,
             UpdateBrand updateBrand,
             RemoveBrand removeBrand,
-            GetBrandById getBrandById
-    ) {
+            GetBrandById getBrandById) {
         this.createBrand = createBrand;
         this.getAllBrands = getAllBrands;
         this.updateBrand = updateBrand;
