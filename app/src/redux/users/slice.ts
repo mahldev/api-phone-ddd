@@ -1,7 +1,7 @@
 import { User, Phone } from '@/models'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const userDefaultState: User = {
+export const userDefaultState: User = {
   name: '',
   password: '',
   wishlist: [],

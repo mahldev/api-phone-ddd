@@ -1,4 +1,5 @@
 import type { User, Phone, PhoneId } from '@/models'
+import { login as loginUser } from '@/services'
 import {
   createUser,
   resetUser,
@@ -23,10 +24,13 @@ const useUserActions = () => {
 
   const isWishlistItem = (id: PhoneId) => user.wishlist.some(item => item.id === id)
 
-  // TODO
-  //const login = (user: User) => { }
+  const login = async (user: User) => {
+    const valid = await loginUser(user)
+    valid && create(user)
+    return valid
+  }
 
-  return { isLoggedIn, create, reset, addToWishlist, removeFromWishlist, isWishlistItem }
+  return { isLoggedIn, create, reset, addToWishlist, removeFromWishlist, isWishlistItem, login }
 }
 
 export default useUserActions

@@ -2,7 +2,7 @@ import { User, Phone } from '@/models'
 
 type UserEndpoint = {
   userName: string
-  passoword: string
+  password: string
 }
 
 export const fromUserEnpointToUser = (userEndpoint: UserEndpoint): User => {
@@ -10,7 +10,7 @@ export const fromUserEnpointToUser = (userEndpoint: UserEndpoint): User => {
 
   const formattedUser: User = {
     name: userEndpoint.userName,
-    password: userEndpoint.passoword,
+    password: userEndpoint.password,
     wishlist: emptyArray,
   }
 
@@ -21,7 +21,7 @@ export const fromUserToEndpointUser = (user: User): UserEndpoint => {
 
   const formattedUser: UserEndpoint = {
     userName: user.name,
-    passoword: user.password
+    password: user.password
   }
 
   return formattedUser

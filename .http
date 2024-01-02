@@ -123,10 +123,10 @@ Content-Type: application/json
 
 #---------------------------LOGIN---------------------------#
 
+Api-Key: apikey
 ###
 POST http://localhost:8080/rest/api/login
 Content-Type: application/json
-Api-Key: apikey
 
 {
   "userName": "paco2",

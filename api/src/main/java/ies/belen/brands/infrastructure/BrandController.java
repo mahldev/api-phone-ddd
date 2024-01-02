@@ -26,11 +26,11 @@ public class BrandController {
 
     @Inject
     public BrandController(
-            CreateBrand createBrand,
-            GetAllBrands getAllBrands,
-            UpdateBrand updateBrand,
-            RemoveBrand removeBrand,
-            GetBrandById getBrandById) {
+            final CreateBrand createBrand,
+            final GetAllBrands getAllBrands,
+            final UpdateBrand updateBrand,
+            final RemoveBrand removeBrand,
+            final GetBrandById getBrandById) {
         this.createBrand = createBrand;
         this.getAllBrands = getAllBrands;
         this.updateBrand = updateBrand;
@@ -40,20 +40,20 @@ public class BrandController {
 
     @GET
     public Response getAll() {
-        var brands = getAllBrands.getAll();
+        final BrandDtoListResponse brands = getAllBrands.getAll();
         return Response.ok(brands).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getBrand(@PathParam("id") Long id) {
-        var brandDto = getBrandById.get(id);
+    public Response getBrand(@PathParam("id") final Long id) {
+        final BrandDto brandDto = getBrandById.get(id);
         return Response.ok(brandDto).build();
     }
 
     @POST
-    public Response save(@Valid BrandDto brandDto) {
-        var brand = createBrand.create(brandDto.name());
+    public Response save(@Valid final BrandDto brandDto) {
+        final BrandDto brand = createBrand.create(brandDto.name());
         return Response
                 .created(URI.create("/brands/" + brand.id()))
                 .entity(brand)
@@ -62,14 +62,14 @@ public class BrandController {
 
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id") Long id, @Valid BrandDto brandDto) {
+    public Response update(@PathParam("id") final Long id, @Valid final BrandDto brandDto) {
         updateBrand.update(id, brandDto);
         return Response.ok().build();
     }
 
     @DELETE
     @Path("{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") final Long id) {
         removeBrand.remove(id);
         return Response.noContent().build();
     }

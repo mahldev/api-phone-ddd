@@ -1,10 +1,15 @@
 import {
+  Dropdown,
   Input,
   Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  DropdownTrigger,
+  DropdownMenu,
+  Button,
+  DropdownItem
 } from '@nextui-org/react'
 import {
   HeartIcon,
@@ -13,6 +18,8 @@ import {
   ShoppingCartIcon,
   UserIcon,
 } from '../../assets/icons.tsx'
+import useUserActions from '@/hooks/useUserActions.ts'
+import { useEffect } from 'react'
 
 const links = [
   {
@@ -33,7 +40,15 @@ const links = [
   },
 ]
 
+
 const HeaderTop = () => {
+  const { reset, isLoggedIn } = useUserActions()
+
+  const handleLogout = () => {
+    reset()
+  }
+
+
   return (
     <Navbar
       as='header'
@@ -82,11 +97,26 @@ const HeaderTop = () => {
       <NavbarContent className='flex gap-5 ml-3' justify='center'>
         <HeartIcon />
         <ShoppingCartIcon />
-        <Link href='/login'>
-          <UserIcon />
-        </Link>
+        <Dropdown>
+          <DropdownTrigger>
+            <button className='p-0'><UserIcon /></button>
+          </DropdownTrigger>
+          {
+            isLoggedIn() ? (
+              <DropdownMenu aria-label='Link Actions'>
+                <DropdownItem key='profile' showDivider>Profile</DropdownItem>
+                <DropdownItem key='logout' onClick={handleLogout}>Log out</DropdownItem>
+              </DropdownMenu>
+            )
+              : (
+                <DropdownMenu aria-label='Link Actions'>
+                  <DropdownItem href='/login' key='signin'>Sign In</DropdownItem>
+                </DropdownMenu>
+              )
+          }
+        </Dropdown>
       </NavbarContent>
-    </Navbar>
+    </Navbar >
   )
 }
 

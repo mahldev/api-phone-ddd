@@ -18,25 +18,30 @@ app.use(
 )
 
 const isEmpty = (object) => {
-  return Object.keys(object) === 0
+  return Object.keys(object).length === 0
 }
 
-async function doFetch (url, method, headers, body) {
+async function doFetch(url, method, headers, body) {
   const options = {
     method,
-    headers
+    headers,
   }
 
-  if (isEmpty(body)) { options.body = JSON.stringify(body) }
+  if (!isEmpty(body)) { options.body = JSON.stringify(body) }
 
   const response = await fetch(url, options)
+  const contentType = response.headers.get('Content-type')
 
   if (response.status === 500) {
     return { status: 500, json: { message: 'Internal Server Error' } }
   }
 
-  const json = await response.json()
-  return { status: response.status, json }
+  if (contentType && contentType.includes('application/json')) {
+    const json = await response.json()
+    return { status: response.status, json }
+  }
+
+  return { status: response.status }
 }
 
 app.use('/', async (req, res) => {

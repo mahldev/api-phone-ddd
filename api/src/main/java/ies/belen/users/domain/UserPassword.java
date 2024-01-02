@@ -2,6 +2,7 @@ package ies.belen.users.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 @NoArgsConstructor
 @Embeddable
 @Getter
+@EqualsAndHashCode
 public class UserPassword {
 
     @Column(name = "password")
