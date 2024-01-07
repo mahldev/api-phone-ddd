@@ -27,6 +27,15 @@ services:
       DB_USER: root
       DB_PASSWORD: 12345678
 
+  proxy:
+    build:
+      context: ../
+      dockerfile: docker/proxy.Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      API_KEY: apikey
+
   app:
     build:
       context: ../

@@ -16,7 +16,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^9.0.4",
-    "react-router-dom": "6.21.1"
+    "react-router-dom": "6.21.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "20.10.5",
@@ -24,6 +25,7 @@
     "@types/react-dom": "18.2.17",
     "@types/react-redux": "^7.1.33",
     "@types/react-router-dom": "5.3.3",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react-swc": "3.5.0",
     "autoprefixer": "10.4.16",
     "eslint-plugin-react-hooks": "4.6.0",

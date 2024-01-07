@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: eshop
 -- ------------------------------------------------------
--- Server version	5.7.44
+-- Server version       5.7.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@ CREATE TABLE `brands` (
   `brand_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`brand_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +48,50 @@ INSERT INTO `brands` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `colors`
+--
+
+DROP TABLE IF EXISTS `colors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `colors` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `colors`
+--
+
+LOCK TABLES `colors` WRITE;
+/*!40000 ALTER TABLE `colors` DISABLE KEYS */;
+INSERT INTO `colors` VALUES 
+(1,0),
+(2,1),
+(3,2),
+(4,3),
+(5,4),
+(6,5),
+(7,6),
+(8,7),
+(9,8),
+(10,9),
+(11,10),
+(12,11),
+(13,12),
+(14,13),
+(15,14),
+(16,15),
+(17,16),
+(18,17),
+(19,18),
+(20,19);
+/*!40000 ALTER TABLE `colors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `order_items`
 --
 
@@ -57,14 +101,20 @@ DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE `order_items` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) DEFAULT NULL,
+  `color` bigint(20) DEFAULT NULL,
   `order_id` bigint(20) DEFAULT NULL,
   `phone_id` bigint(20) DEFAULT NULL,
+  `storage_size` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `FK_order_items_color` (`color`),
+  KEY `FK_order_items_storage_size` (`storage_size`),
   KEY `FK_order_items_order_id` (`order_id`),
   KEY `FK_order_items_phone_id` (`phone_id`),
+  CONSTRAINT `FK_order_items_color` FOREIGN KEY (`color`) REFERENCES `colors` (`id`),
   CONSTRAINT `FK_order_items_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `FK_order_items_phone_id` FOREIGN KEY (`phone_id`) REFERENCES `phones` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_order_items_phone_id` FOREIGN KEY (`phone_id`) REFERENCES `phones` (`id`),
+  CONSTRAINT `FK_order_items_storage_size` FOREIGN KEY (`storage_size`) REFERENCES `storages_sizes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +140,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_orders_user_id` (`user_id`),
   CONSTRAINT `FK_orders_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,13 +161,15 @@ DROP TABLE IF EXISTS `phone_colors`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `phone_colors` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `color_name` varchar(30) DEFAULT NULL,
   `color_commercial_name` varchar(255) DEFAULT NULL,
+  `color_name` bigint(20) DEFAULT NULL,
   `phone_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_phone_colors_phone_id` (`phone_id`),
+  KEY `FK_phone_colors_color_name` (`color_name`),
+  CONSTRAINT `FK_phone_colors_color_name` FOREIGN KEY (`color_name`) REFERENCES `colors` (`id`),
   CONSTRAINT `FK_phone_colors_phone_id` FOREIGN KEY (`phone_id`) REFERENCES `phones` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,18 +178,18 @@ CREATE TABLE `phone_colors` (
 
 LOCK TABLES `phone_colors` WRITE;
 /*!40000 ALTER TABLE `phone_colors` DISABLE KEYS */;
-INSERT INTO `phone_colors` VALUES
-(1,'blue','blue titanium',1),
-(2,'white','white titanium',1),
-(3,'green','natural titanium',1),
-(4,'black','black titanium',1),
-(5,'black','black',2),
-(6,'green','meadow green',2),
-(7,'blue','alpine blue',2),
-(8,'lightblue','mint',3),
-(10,'black','graphite',3),
-(11,'purple','lavander',3),
-(12,'ligthyellow','cream',3);
+INSERT INTO `phone_colors` VALUES 
+(1,'blue titanium',2,1),
+(2,'white titanium',10,1),
+(3,'natural titanium',11,1),
+(4,'black titanium',9,1),
+(5,'black',9,2),
+(6,'meadow green',3,2),
+(7,'alpine blue',2,2),
+(8,'mint',3,3),
+(10,'graphite',11,3),
+(11,'lavander',7,3),
+(12,'cream',13,3);
 /*!40000 ALTER TABLE `phone_colors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +207,7 @@ CREATE TABLE `phone_images` (
   PRIMARY KEY (`id`),
   KEY `FK_phone_images_phone_id` (`phone_id`),
   CONSTRAINT `FK_phone_images_phone_id` FOREIGN KEY (`phone_id`) REFERENCES `phones` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +254,7 @@ CREATE TABLE `phone_storage_sizes` (
 
 LOCK TABLES `phone_storage_sizes` WRITE;
 /*!40000 ALTER TABLE `phone_storage_sizes` DISABLE KEYS */;
-INSERT INTO `phone_storage_sizes` VALUES
+INSERT INTO `phone_storage_sizes` VALUES 
 (1,1),
 (1,2),
 (1,3),
@@ -255,7 +307,7 @@ CREATE TABLE `storages_sizes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `size_in_gb` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +336,7 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +345,8 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES
+(1, '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', 'user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -304,3 +358,6 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-01-06 21:28:48
+

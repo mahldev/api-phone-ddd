@@ -23,6 +23,9 @@ public class CreatePhone {
     @Inject
     private StorageSizeRepository storageSizeRepository;
 
+    @Inject
+    private ColorRepository colorRepository;
+
     public PhoneDto create(PhoneDto phoneDto) {
         phoneRepository.findByName(phoneDto.name()).ifPresent((phone) -> {
             throw new ResourceConflictException("Phone already exists");
@@ -34,10 +37,19 @@ public class CreatePhone {
                             phoneDto.name(),
                             phoneDto.price(),
                             brand,
-                            phoneDto.images(),
-                            phoneDto.colors()));
+                            phoneDto.images()));
+
+                    savedPhone.setColors(phoneDto.colors()
+                            .stream()
+                            .map(color -> PhoneColorDto.toPhoneColor(color.commercialName(), savedPhone,
+                                    findOrCreateColor(color.color().name())))
+                            .toList());
+
+                    savedPhone.getColors().stream();
+
                     savedPhone.setStorageSizes(fromIntegerListToSizeEnumList(phoneDto.storagesSizes()));
                     brand.getPhones().add(savedPhone);
+
                     return savedPhone;
                 })
                 .map(Phone::toPhoneDto)
@@ -53,4 +65,8 @@ public class CreatePhone {
                 .toList();
     }
 
+    public Color findOrCreateColor(String name) {
+        return colorRepository.findByName(Color.fromStringToColorEnum(name))
+                .orElseGet(() -> colorRepository.create(new Color(name)));
+    }
 }

@@ -4,13 +4,13 @@ import fetch from 'node-fetch'
 
 const app = express()
 const apikey = process.env.API_KEY
-const apiUrl = 'http://localhost:8080'
+const apiUrl = 'http://api:8080'
 
 app.disable('x-powered-by')
 app.use(json())
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://app:5173',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204

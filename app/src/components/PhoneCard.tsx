@@ -36,7 +36,7 @@ const PhoneCard = ({ id, image, name, price, isLiked: isLikedProp, handleLike }:
         <Image
           radius='lg'
           width='100%'
-          src={`src/assets/images/${image}`}
+          src={`/images/${image}`}
           className='w-full object-cover h-[170px]'
         />
       </CardBody>

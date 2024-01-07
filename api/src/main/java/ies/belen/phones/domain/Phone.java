@@ -3,6 +3,7 @@ package ies.belen.phones.domain;
 import java.io.Serializable;
 
 import ies.belen.brands.domain.Brand;
+import ies.belen.phones.application.ColorDto;
 import ies.belen.phones.application.PhoneColorDto;
 import ies.belen.phones.application.PhoneDto;
 
@@ -48,13 +49,11 @@ public class Phone implements Serializable {
             String name,
             Double price,
             Brand brand,
-            List<String> images,
-            List<PhoneColorDto> colors) {
+            List<String> images) {
         this.name = name;
         this.price = new PhonePrice(price);
         this.brand = brand;
         this.images = stringListToPhoneImageList(images);
-        this.colors = phoneColorListToPhoneColorList(colors);
     }
 
     public void setPrice(Double price) {
@@ -87,7 +86,9 @@ public class Phone implements Serializable {
     private static List<PhoneColorDto> phoneColorListToStringList(List<PhoneColor> colors) {
         return colors
                 .stream()
-                .map(phoneColor -> new PhoneColorDto(phoneColor.getCommercialName(), phoneColor.getColorName()))
+                .map(phoneColor -> new PhoneColorDto(
+                        phoneColor.getCommercialName(),
+                        new ColorDto(Color.fromColorEnumToString(phoneColor.getColor().getColor()))))
                 .toList();
     }
 
@@ -95,13 +96,6 @@ public class Phone implements Serializable {
         return stringList
                 .stream()
                 .map(imageString -> new PhoneImage(imageString, this))
-                .toList();
-    }
-
-    private List<PhoneColor> phoneColorListToPhoneColorList(List<PhoneColorDto> phoneColorDtos) {
-        return phoneColorDtos
-                .stream()
-                .map(color -> new PhoneColor(color.commercialName(), color.color(), this))
                 .toList();
     }
 

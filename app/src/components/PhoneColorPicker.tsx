@@ -12,13 +12,13 @@ enum Colors {
 }
 
 const PhoneColorPicker = ({ color, commercialName, className, onClick }: PhoneColorPickerProps) => {
-  const isWhite = color === Colors.White
+  const isWhite = color.name === Colors.White
   return (
     <Tooltip className='rounded-md px-5 py-2' placement={'bottom'} content={capitalizeWord(commercialName)} >
       <div className={`flex rounded-full items-center justify-center w-10 h-10 ${className}`}>
         <span
           className={`${isWhite ? 'border-1 border-gray-600' : ''} rounded-full w-8 h-8 cursor-pointer`}
-          style={{ backgroundColor: `${color}` }}
+          style={{ backgroundColor: `${color.name}` }}
           onClick={onClick}
         />
       </div>

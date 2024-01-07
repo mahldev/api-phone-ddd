@@ -11,7 +11,6 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY ../app/package.json .
 COPY ../app/vite.config.ts .
-COPY ../app/.env .
 
 RUN npm install typescript
 

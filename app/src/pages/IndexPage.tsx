@@ -19,7 +19,7 @@ export function IndexPage() {
             </Button>
           </div>
           <Image
-            src='src/assets/images/index-content/iphone.webp'
+            src='/images/index-content/iphone.webp'
             alt=''
             width={380}
             radius='none'

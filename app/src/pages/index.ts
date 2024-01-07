@@ -1,4 +1,5 @@
-export * from './AllPhonePage';
-export * from './IndexPage';
-export * from './PhoneDatailsPage';
-export { default as LoginPage } from './LoginPage';
+export * from './AllPhonePage'
+export * from './IndexPage'
+export * from './PhoneDatailsPage'
+export { default as LoginPage } from './LoginPage'
+export { default as OrderPage } from './OrderPage'

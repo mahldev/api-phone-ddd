@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -69,4 +70,7 @@ public class User implements Serializable {
         return true;
     }
 
+    public static boolean equalsCredentials(User u1, User u2) {
+        return Objects.equals(u1.username, u2.username) && Objects.equals(u1.password, u2.password);
+    }
 }

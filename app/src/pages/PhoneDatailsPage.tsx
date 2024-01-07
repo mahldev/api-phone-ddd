@@ -1,15 +1,20 @@
-import { BreadcrumbsPhoneDetails, Header, InfoCard, PhoneColorPicker, PhoneImage } from '@/components';
+import { BreadcrumbsPhoneDetails, Header, InfoCard, PhoneColorPicker, PhoneImage, Spinner } from '@/components';
 import PhoneStoragePicker from '@/components/PhoneStoragePicker';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import type { PhoneColor, Phone } from '@/models';
+import type { PhoneColor, Phone, ShoppingCartItem } from '@/models';
 import { Button, Skeleton } from '@nextui-org/react';
 import { DeliveryTruckIcon, GuaranteedIcon, ShopIcon } from '@/assets/icons';
 import { useUserActions, usePhone } from '@/hooks/';
 
 export function PhoneDetailsView() {
   const { phoneId } = useParams()
-  const { isLoggedIn, isWishlistItem, removeFromWishlist, addToWishlist } = useUserActions()
+  const { isLoggedIn,
+    isWishlistItem,
+    removeFromWishlist,
+    addToWishlist,
+    addToShoppingCart
+  } = useUserActions()
 
   if (!phoneId) throw Error('Bad id')
 
@@ -38,7 +43,7 @@ export function PhoneDetailsView() {
 
   const handleSelectedColor = (color: PhoneColor) => setSelectedColor(color)
 
-  const handleSeletecStorage = (storage: number) => setSelectedStorage(storage)
+  const handleSeletedStorage = (storage: number) => setSelectedStorage(storage)
 
   const handleWishlist = (phone: Phone | null) => {
     if (phone !== null) {
@@ -46,6 +51,28 @@ export function PhoneDetailsView() {
       isOnList ? removeFromWishlist(phone) : addToWishlist([phone])
       setOnWishlist(!onWishlist)
     }
+  }
+
+  const createOrder = (
+    { phone, selectedColor, selectedStorage }:
+      { phone: Phone, selectedColor: PhoneColor, selectedStorage: number }) => {
+    const shoppingCartItem: ShoppingCartItem = {
+      item: {
+        id: phone.id,
+        name: phone.name,
+        color: selectedColor,
+        storage: selectedStorage,
+        price: phone.price,
+        imagePreview: phone.images[0]
+      },
+      quantity: 1
+    }
+
+    return shoppingCartItem
+  }
+
+  const handleShoppinCart = (shoppingCartItem: ShoppingCartItem) => {
+    addToShoppingCart(shoppingCartItem)
   }
 
   return (
@@ -92,7 +119,7 @@ export function PhoneDetailsView() {
                   const isSelected = c === selectedColor
                   return (
                     <PhoneColorPicker
-                      key={c.color}
+                      key={c.color.name}
                       color={c.color}
                       commercialName={c.commercialName}
                       className={isSelected ? 'border-1 border-black' : ''}
@@ -111,7 +138,7 @@ export function PhoneDetailsView() {
                     storage={storage}
                     className={`bg-transparent border-1 font-medium rounded-md px-9 py-6
                       ${isSelected ? 'border-black' : 'border-gray-400 text-gray-500'}`}
-                    onClick={() => handleSeletecStorage(storage)}
+                    onClick={() => handleSeletedStorage(storage)}
                   />
                 )
               })}
@@ -124,12 +151,19 @@ export function PhoneDetailsView() {
               >
                 {`${onWishlist ? 'Remove' : 'Add'} to Wishlist `}
               </Button>
-              <Button
-                className='px-20 py-7 bg-black text-white font-medium border-1 rounded-md border-gray-800 w-64'
-                size='lg'
-              >
-                Add to Card
-              </Button>
+              {
+                (phone !== null && selectedColor !== undefined && selectedStorage !== undefined) ? (
+                  <Button
+                    className='px-20 py-7 bg-black text-white font-medium border-1 rounded-md border-gray-800 w-64'
+                    size='lg'
+                    onPress={() => handleShoppinCart(createOrder({ phone, selectedColor, selectedStorage }))}
+                  >
+                    Add to Card
+                  </Button>
+                ) : (
+                  <Button><Spinner /></Button>
+                )
+              }
             </div>
             <div className='flex gap-9 items-center'>
               <InfoCard icon={<DeliveryTruckIcon />} topText='Free Delivery' bottomText='1-2 day' />

@@ -1,4 +1,4 @@
 export default interface PhoneColor {
-  color: string
+  color: { name: string }
   commercialName: string
 }

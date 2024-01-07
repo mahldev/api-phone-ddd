@@ -36,11 +36,11 @@ export function AllPhonePage() {
   return (
     <>
       <Header />
-      <main className='flex items-center justify-center mt-2'>
+      <main className='flex flex-col items-center mt-2 h-screen'>
         {loading ? (
           <Spinner />
         ) : (
-          <section className='grid justify-center grid-cols-3 gap-4'>
+          <section className='flex gap-9 mt-20'>
             {phones?.map((phone) => {
               const isLiked = isWishlistItem(phone.id)
               const { images, name, price } = phone

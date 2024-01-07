@@ -1,8 +1,10 @@
-import { Phone } from '.'
+import type { Phone, ShoppingCartItem } from '.'
 
 export interface User {
+  id: number
   name: string
   password: string
-  wishlist: Phone[] // esto seria una herencia de productos
+  wishlist: Phone[]
   isLoggedIn?: boolean
+  shoppingCart: ShoppingCartItem[]
 }

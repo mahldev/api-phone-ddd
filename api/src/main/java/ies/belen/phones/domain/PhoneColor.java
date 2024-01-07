@@ -19,8 +19,9 @@ public class PhoneColor implements Serializable {
     @Column(name = "color_commercial_name")
     private String commercialName;
 
-    @Column(length = 30, name = "color_name")
-    private String colorName;
+    @ManyToOne
+    @JoinColumn(name = "color_name")
+    private Color color;
 
     @ManyToOne
     @JoinColumn(name = "phone_id")
@@ -28,10 +29,10 @@ public class PhoneColor implements Serializable {
     @EqualsAndHashCode.Exclude
     private Phone phone;
 
-    public PhoneColor(String commercialName, String colorName, Phone phone) {
+    public PhoneColor(String commercialName, Phone phone, Color color) {
         this.commercialName = commercialName;
-        this.colorName = colorName;
         this.phone = phone;
+        this.color = color;
     }
 
 }

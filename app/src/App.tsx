@@ -1,6 +1,12 @@
 import { NextUIProvider } from '@nextui-org/react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import { IndexPage, AllPhonePage, PhoneDetailsView, LoginPage } from '@/pages'
+import {
+  IndexPage,
+  AllPhonePage,
+  PhoneDetailsView,
+  LoginPage,
+  OrderPage
+} from '@/pages'
 
 export const App = () => {
   const navigate = useNavigate()
@@ -12,6 +18,7 @@ export const App = () => {
         <Route path='/phones' element={<AllPhonePage />} />
         <Route path='/phones/:phoneId' element={<PhoneDetailsView />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/order' element={<OrderPage />} />
       </Routes>
     </NextUIProvider>
   )

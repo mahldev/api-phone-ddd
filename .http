@@ -43,21 +43,25 @@ Content-Type: application/json
 Api-Key: apikey
 
 {
-    "name": "myPhone2",
-    "price": 1000,
-    "brandId": 1,
-    "storagesSizes": [128, 64, 1000, 256],
-    "images": ["image1, image3, image3"],
-    "colors": [
-      {
-          "commercialName": "titanium",
-          "color": "gray"
-      },
-      {
-          "commercialName": "titanium black",
-          "color": "black"
-      }
-    ]
+    "name": "myPhone3",
+        "price": 1000,
+        "brandId": 1,
+        "storagesSizes": [128, 64, 1000, 256],
+        "images": ["image1", "image3", "image3"],
+        "colors": [
+        {
+            "commercialName": "titanium",
+            "color": {
+                "name": "olive"
+            }
+        },
+        {
+            "commercialName": "titanium black",
+            "color":{
+                "name": "red"
+            }
+        }
+        ]
 }
 
 ###
@@ -70,7 +74,7 @@ Api-Key: apikey
     "price": 90,
     "brandId": 3,
     "storagesSizes": [90, 200],
-    "colors": ["azul"],
+    "colors": "azul"],
     "images": ["image1","image3", "image3"]
 }
 
@@ -96,11 +100,10 @@ Api-Key: apikey
 }
 
 
-#---------------------------USERS---------------------------#
+#---------------------------ORDERS---------------------------#
 
 ###
 GET http://localhost:8080/rest/api/orders
-
 
 ###
 POST http://localhost:8080/rest/api/orders
@@ -108,13 +111,13 @@ Content-Type: application/json
 
 {
   "userId": 1,
-    "items": [
+   "items": [
     {
       "phoneId": 1,
-      "quantity": 2
-    },
-    {
-      "phoneId": 2,
+      "color": {
+        "name": "red"
+      },
+      "storageSize": 128,
       "quantity": 2
     }
     ]
@@ -123,10 +126,10 @@ Content-Type: application/json
 
 #---------------------------LOGIN---------------------------#
 
-Api-Key: apikey
 ###
 POST http://localhost:8080/rest/api/login
 Content-Type: application/json
+Api-Key: apikey
 
 {
   "userName": "paco2",

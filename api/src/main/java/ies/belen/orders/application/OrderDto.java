@@ -1,7 +1,5 @@
 package ies.belen.orders.application;
 
-import ies.belen.users.application.UserDto;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,8 +9,9 @@ public record OrderDto(
 
         LocalDateTime date,
 
-        UserDto user,
+        Long userId,
 
-        List<OrderItemDto> phones
+        List<OrderItemDto> items
+
 ) {
 }

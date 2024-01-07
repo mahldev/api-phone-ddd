@@ -11,4 +11,15 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  preview: {
+    host: true,
+    port: 5000,
+    proxy: {
+      '/api': {
+        target: 'http://proxy:3000/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
+  }
 })

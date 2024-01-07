@@ -27,10 +27,11 @@ function LoginPage() {
 
     if (formData.name != '' && formData.password != '') {
       setLoading(true)
-      const user: User = {
+      const user: Omit<User, 'id'> = {
         name: formData.name,
         password: formData.password,
-        wishlist: []
+        wishlist: [],
+        shoppingCart: []
       }
 
       const valid = await login(user)

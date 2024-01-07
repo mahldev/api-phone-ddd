@@ -2,7 +2,7 @@ import { Phone } from '@/models/phone'
 import { PhoneResponse } from '@/models/endpointPhone'
 import { createAddaptedPhone } from '@/adapters/phoneAdapter'
 
-const API_URL = 'http://localhost:3000'
+const API_URL = '/api'
 
 export async function getAllPhones(): Promise<Phone[]> {
   const getAllPhonesUrl = `${API_URL}/rest/api/phones`

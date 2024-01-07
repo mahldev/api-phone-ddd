@@ -9,7 +9,7 @@ type PhoneImageProps = {
   className?: string
 }
 
-const PATH = '/src/assets/images/'
+const PATH = '/images'
 
 const PhoneImage = ({ src, width, height, onClick, className }: PhoneImageProps) => {
   const isLoading = src === undefined
@@ -17,7 +17,7 @@ const PhoneImage = ({ src, width, height, onClick, className }: PhoneImageProps)
     <Spinner />
   ) : (
     <Image
-      src={`${PATH}${src}`}
+      src={`${PATH}/${src}`}
       width={width}
       height={height}
       onClick={onClick}

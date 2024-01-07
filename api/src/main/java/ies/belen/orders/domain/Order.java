@@ -17,40 +17,40 @@ import java.util.List;
 @NoArgsConstructor
 public class Order {
 
-  @Id
-  @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Embedded
-  private OrderDate date;
+    @Embedded
+    private OrderDate date;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<OrderItem> orderItems;
 
-  public Order(User user) {
-    this.date = new OrderDate();
-    this.user = user;
-  }
+    public Order(User user) {
+        this.date = new OrderDate();
+        this.user = user;
+    }
 
-  public static OrderDto toDto(Order order) {
-    return new OrderDto(
-        order.id,
-        order.date.getDate(),
-        User.toUserDto(order.user),
-        toOrderItemDtoList(order.orderItems));
-  }
+    public static OrderDto toDto(Order order) {
+        return new OrderDto(
+                order.id,
+                order.date.getDate(),
+                order.user.getId(),
+                toOrderItemDtoList(order.orderItems));
+    }
 
-  private static List<OrderItemDto> toOrderItemDtoList(List<OrderItem> orderItems) {
-    return orderItems.stream()
-        .map(OrderItem::toDto)
-        .toList();
-  }
+    private static List<OrderItemDto> toOrderItemDtoList(List<OrderItem> orderItems) {
+        return orderItems.stream()
+                .map(OrderItem::toDto)
+                .toList();
+    }
 
 }

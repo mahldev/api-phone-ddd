@@ -1,10 +1,15 @@
-import type { User, Phone, PhoneId } from '@/models'
-import { login as loginUser } from '@/services'
+import type { User, Phone, ShoppingCartItem } from '@/models'
+import { login as loginUser, doOrder as sendOrder } from '@/services'
 import {
   createUser,
   resetUser,
   addToWishlist as addItems,
   removeFromWishlist as removeItem,
+  addToShoppingCart as addItemsToCart,
+  removeFromShoppingCart as removeItemFromCart,
+  removeUnitFromShoppingCart as removeUnit,
+  addUnitFromShoppingCart as addUnit,
+  resetShoppingCart
 } from '@/redux/users/slice'
 import { useAppDispacth, useAppSelector } from './store.ts'
 
@@ -22,15 +27,62 @@ const useUserActions = () => {
 
   const removeFromWishlist = (phone: Phone) => dispatch(removeItem(phone))
 
-  const isWishlistItem = (id: PhoneId) => user.wishlist.some(item => item.id === id)
+  const isWishlistItem = (id: number) => user.wishlist.some(item => item.id === id)
 
-  const login = async (user: User) => {
-    const valid = await loginUser(user)
-    valid && create(user)
-    return valid
+  const addToShoppingCart = (items: ShoppingCartItem) => dispatch(addItemsToCart(items))
+
+  const removeFromShoppingCart = (item: ShoppingCartItem) => dispatch(removeItemFromCart(item))
+
+  const removeUnitFromShoppingCart = (item: ShoppingCartItem) => dispatch(removeUnit(item))
+
+  const addUnitFromShoppingCart = (item: ShoppingCartItem) => dispatch(addUnit(item))
+
+  const isOnShoppingCart = (id: number) => user.shoppingCart.some(item => item.item.id === id)
+
+  const numberOfItemsOnCart = () => user.shoppingCart.length
+
+  const numberOfItemsOnWishlist = () => user.wishlist.length
+
+  const getUserWishList = () => user.wishlist
+
+  const getUserShoppingCart = () => user.shoppingCart
+
+  const clearShoppingCart = () => dispatch(resetShoppingCart())
+
+  const doOrder = async (): Promise<boolean> => {
+    const items = user.shoppingCart
+    const userId = user.id
+
+    return await sendOrder(userId, items)
   }
 
-  return { isLoggedIn, create, reset, addToWishlist, removeFromWishlist, isWishlistItem, login }
+  const login = async (user: Omit<User, 'id'>): Promise<boolean> => {
+    const validUser = await loginUser(user)
+    validUser && create(validUser)
+    return !!validUser
+  }
+
+  return {
+    isLoggedIn,
+    create,
+    reset,
+    addToWishlist,
+    removeFromWishlist,
+    isWishlistItem,
+    login,
+    addToShoppingCart,
+    removeFromShoppingCart,
+    removeUnitFromShoppingCart,
+    addUnitFromShoppingCart,
+    isOnShoppingCart,
+    numberOfItemsOnCart,
+    numberOfItemsOnWishlist,
+    getUserWishList,
+    getUserShoppingCart,
+    doOrder,
+    clearShoppingCart
+  }
+
 }
 
 export default useUserActions

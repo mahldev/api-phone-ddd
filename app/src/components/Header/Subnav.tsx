@@ -46,7 +46,7 @@ const Subnav = () => {
     <Navbar
       as='section'
       position='static'
-      className='flex justify-center bg-[#2E2E2E] w-full h-10'
+      className='flex justify-center bg-[#2E2E2E] w-full h-14'
       maxWidth='xl'
     >
       <NavbarContent className='felx items-center w-full h-10 gap-0' justify='center'>
